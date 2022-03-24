@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input, Output, OnInit } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 
 @Component({
@@ -7,13 +7,17 @@ import { EventEmitter } from '@angular/core';
   styles: [
   ]
 })
-export class IncrementadorComponent{
+export class IncrementadorComponent implements OnInit{
+  ngOnInit() {
+    this.btnClass = `btn ${this.btnClass}`
+  }
   //Como renombrar argumentos:
   //@Input('valor') progreso: number = 40;
   @Input('valor') progreso: number = 40;
+  @Input() btnClass: string = 'btn-primary';
 
   //Para comunicar las funciones con atributos
-  @Output() valorSalida: EventEmitter<number> = new EventEmitter();
+  @Output('valor') valorSalida: EventEmitter<number> = new EventEmitter();
 
   cambiarValor(valor: number) {
     if (this.progreso >= 100 && valor >= 0) {
@@ -29,6 +33,18 @@ export class IncrementadorComponent{
 
     this.progreso = this.progreso + valor;
     this.valorSalida.emit(this.progreso);
+
+  }
+
+  onChange(nuevoValor: number){
+    if( nuevoValor >= 100){
+        this.progreso = 100
+    } else if ( nuevoValor <= 0 ){
+      this.progreso = 0;
+    } else {
+      this.progreso=nuevoValor;
+    }
+    this.valorSalida.emit( this.progreso );
 
   }
 
