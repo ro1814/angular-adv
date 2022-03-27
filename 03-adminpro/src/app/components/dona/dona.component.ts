@@ -1,28 +1,23 @@
 import { Component, Input } from '@angular/core';
-import { ChartData, ChartType } from 'chart.js';
+import { MultiDataSet, Label, Color } from 'ng2-charts';
 
 @Component({
   selector: 'app-dona',
   templateUrl: './dona.component.html',
-  styles: [],
+  styles: [
+  ]
 })
-export class DonaComponent {
+export class DonaComponent{
+  
   @Input() title: string = 'Sin titulo';
 
-  @Input('labels') doughnutChartLabels: string[] = [
-    'label1',
-    'label2',
-    'label3',
+  @Input('labels') doughnutChartLabels: Label[] = ['Label1', 'Label2', 'Label2'];
+  @Input('data') doughnutChartData: MultiDataSet = [
+    [350, 450, 100],
   ];
-  @Input('data') doughnutChartData: ChartData<'doughnut'> = {
-    labels: this.doughnutChartLabels,
-    datasets:[
-      {
-        data: [350, 450, 100],
-        backgroundColor: ['#9E120E', '#FF5800', '#FFb414'],
-      },
-    ],
-  };
 
-  public doughnutChartType: ChartType = 'doughnut';
+  public colors: Color[] = [
+    { backgroundColor: [ '#6857E6','#009FEE','#F02059' ] }
+  ];
+
 }
